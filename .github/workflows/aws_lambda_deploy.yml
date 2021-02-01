@@ -15,7 +15,6 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - run: ls -alF target
     - name: Deploy to AWS
       uses: appleboy/lambda-action@v0.0.8
       with:
@@ -23,6 +22,6 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: lambda_jersey_test_1
-          zip_file: lambda_jersey_test_1/target/lambda_jersey_test_1-1.0-SNAPSHOT.jar # TODO
+          zip_file: target/lambda_jersey_test_1-1.0-SNAPSHOT-lambda-package.zip # TODO
           handler: com.lindronics.StreamLambdaHandler
           runtime: java11
