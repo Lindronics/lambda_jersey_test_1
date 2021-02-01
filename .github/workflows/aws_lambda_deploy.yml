@@ -1,0 +1,20 @@
+name: aws_lambda_deploy
+on: [push]
+  # release:
+  #   types: [created]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: aws_deploy
+      uses: appleboy/lambda-action@v0.0.8
+      with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: lambda_jersey_test_1
+          source: .
+          handler: com.lindronics.StreamDataHandler
+          runtime: java11
