@@ -15,8 +15,7 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - run: pwd
-    - run: ls
+    - run: ls -alF target
     - name: Deploy to AWS
       uses: appleboy/lambda-action@v0.0.8
       with:
