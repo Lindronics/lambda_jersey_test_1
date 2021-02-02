@@ -9,6 +9,7 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lindronics.resource.IndexResource;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -22,6 +23,7 @@ import com.lindronics.resource.PingResource;
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static final ResourceConfig jerseyApplication = new ResourceConfig()
                                                                     .register(PingResource.class)
+                                                                    .register(IndexResource.class)
                                                                     .register(JacksonFeature.class);
     private static final JerseyLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler
             = JerseyLambdaContainerHandler.getAwsProxyHandler(jerseyApplication);
