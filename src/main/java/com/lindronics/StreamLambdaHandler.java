@@ -4,9 +4,12 @@ import com.amazonaws.serverless.proxy.jersey.JerseyLambdaContainerHandler;
 import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.lindronics.resource.IndexResource;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -19,15 +22,22 @@ import com.lindronics.resource.PingResource;
 
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static final ResourceConfig jerseyApplication = new ResourceConfig()
-                                                                    .register(PingResource.class)
-                                                                    .register(JacksonFeature.class);
+            .register(PingResource.class)
+            .register(IndexResource.class)
+            .register(JacksonFeature.class);
+
     private static final JerseyLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler
             = JerseyLambdaContainerHandler.getAwsProxyHandler(jerseyApplication);
+
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
             throws IOException {
-        context.getLogger().log((new ObjectMapper()).writeValueAsString(context));
+
+        LambdaLogger logger = context.getLogger();
+        logger.log("CONTEXT: " + gson.toJson(context));
+
         handler.proxyStream(inputStream, outputStream, context);
     }
 }
