@@ -1,4 +1,7 @@
 # lambda_jersey_test_1 serverless API
+
+![aws_lambda_deploy](https://github.com/Lindronics/lambda_jersey_test_1/workflows/aws_lambda_deploy/badge.svg?branch=master)
+
 The lambda_jersey_test_1 project, created with [`aws-serverless-java-container`](https://github.com/awslabs/aws-serverless-java-container).
 
 The starter project defines a simple `/ping` resource that can accept `GET` requests with its tests.
