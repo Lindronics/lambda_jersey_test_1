@@ -6,7 +6,7 @@ Globals:
     EndpointConfiguration: REGIONAL
 
 Resources:
-  Lambda_jersey_test_1Function:
+  LambdaJerseyTest1Function:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.lindronics.StreamLambdaHandler::handleRequest
@@ -23,7 +23,7 @@ Resources:
             Method: any
 
 Outputs:
-  Lambda_jersey_test_1Api:
+  LambdaJerseyTest1API:
     Description: URL for application
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
     Export:

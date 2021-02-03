@@ -22,9 +22,10 @@ import com.lindronics.resource.PingResource;
 
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static final ResourceConfig jerseyApplication = new ResourceConfig()
-                                                                    .register(PingResource.class)
-                                                                    .register(IndexResource.class)
-                                                                    .register(JacksonFeature.class);
+            .register(PingResource.class)
+            .register(IndexResource.class)
+            .register(JacksonFeature.class);
+
     private static final JerseyLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler
             = JerseyLambdaContainerHandler.getAwsProxyHandler(jerseyApplication);
 
